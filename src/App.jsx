@@ -5,6 +5,7 @@ import TransactionTable from './components/TransactionTable';
 import { FinanceProvider, useFinance } from './context/FinanceContext';
 import AddTransactionModal from './components/AddTransactionModal';
 import DashboardCharts from './components/DashboardCharts';
+import {Sun,Moon} from 'lucide-react';
 
 const DashboardLayout = () => {
   // Pull theme and setTheme from Context
@@ -28,10 +29,10 @@ const DashboardLayout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col md:flex-row transition-colors duration-200">
+    <div className="h-screen overflow-hidden bg-gray-50 dark:bg-gray-900 flex flex-col md:flex-row transition-colors duration-200">
       
       {/* Sidebar / Top Nav */}
-      <nav className="w-full md:w-64 bg-white dark:bg-gray-800 border-b md:border-r border-gray-200 dark:border-gray-700 p-6 flex flex-col justify-between transition-colors duration-200">
+      <nav className="w-full md:w-64 flex-shrink-0 overflow-y-auto bg-white dark:bg-gray-800 border-b md:border-r border-gray-200 dark:border-gray-700 p-6 flex flex-col justify-between transition-colors duration-200">
         <div>
           <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-8">FinanceDash</h1>
           <ul className="space-y-4 text-gray-600 dark:text-gray-400">
@@ -55,9 +56,9 @@ const DashboardLayout = () => {
           <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
              <button 
                 onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-                className="w-full flex items-center justify-center p-2 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+                className="w-full flex items-center justify-center gap-2 p-2 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition"
              >
-                {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
+                {theme === 'light' ?(<><Moon size={18} /> Switch to Dark</>):(<><Sun size={18} /> Switch to Light</>)}
              </button>
           </div>
 
@@ -75,7 +76,7 @@ const DashboardLayout = () => {
       </nav>
 
       {/* Main Content Area */}
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-8 overflow-y-auto">
         <header className="flex justify-between items-center mb-8">
           <h2 className="text-3xl font-semibold text-gray-800 dark:text-white capitalize">
             {activeTab === 'transaction' ? 'Transactions' : activeTab}

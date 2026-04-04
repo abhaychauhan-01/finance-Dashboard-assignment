@@ -1,18 +1,23 @@
 import { useState } from 'react';
 import { useFinance } from '../context/FinanceContext';
 import toast from 'react-hot-toast';
+import { motion } from 'framer-motion';
 
 const TransactionTable = ({ onEdit }) => {
   const { transactions, deleteTransaction, role } = useFinance();
   
   const [searchTerm, setSearchTerm] = useState('');
   const [filterDate, setFilterDate] = useState('');
-  const handleDelete = (id) => {
-    if(window.confirm("Are you sure you want to delete this transaction?")) {
-      deleteTransaction(id);
-      toast.error("Transaction deleted!");
-    }
-  };
+ const [transactionToDelete,setTransactionToDelete]=useState(null);
+ const initiateDelete=(id)=>{
+  setTransactionToDelete(id);
+ };
+ const confirmDelete=()=>{
+  if(transactionToDelete)
+    deleteTransaction(transactionToDelete);
+  toast.error("Transaction Deleted!");
+  setTransactionToDelete(null);
+ }
 
   //Filter Logic
   const filteredTransactions = transactions.filter((t) => {
@@ -88,7 +93,7 @@ const TransactionTable = ({ onEdit }) => {
                   {role === 'admin' && (
                     <td className="p-4 text-sm text-center space-x-3">
                       <button onClick={() => onEdit(t)} className="text-blue-500 hover:text-blue-700 dark:text-blue-400 font-medium">Edit</button>
-                      <button onClick={() => handleDelete(t.id)} className="text-red-500 hover:text-red-700 dark:text-red-400 font-medium">Delete</button>
+                      <button onClick={() => initiateDelete(t.id)} className="text-red-500 hover:text-red-700 dark:text-red-400 font-medium transition-colors">Delete</button>
                     </td>
                   )}
                 </tr>
@@ -105,6 +110,35 @@ const TransactionTable = ({ onEdit }) => {
           </tbody>
         </table>
       </div>
+      {transactionToDelete && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-sm">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95, y: 20 }} 
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-6 w-full max-w-sm border border-gray-100 dark:border-gray-700"
+          >
+            <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">Delete Transaction?</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm">
+              Are you sure you want to delete this? This action cannot be undone.
+            </p>
+            
+            <div className="flex gap-3 justify-end">
+              <button 
+                onClick={() => setTransactionToDelete(null)}
+                className="px-4 py-2 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg font-medium transition-colors"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={confirmDelete}
+                className="px-4 py-2 text-white bg-red-500 hover:bg-red-600 rounded-lg font-medium transition-colors"
+              >
+                Yes, Delete
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };
