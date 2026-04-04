@@ -12,8 +12,6 @@ const AddTransactionModal = ({ isOpen, onClose, transactionToEdit }) => {
     category: '',
     type: 'expense'
   });
-
-  // Agar edit pe click kiya hai, toh purana data form mein bhar do
   useEffect(() => {
     if (transactionToEdit) {
       setFormData(transactionToEdit);
@@ -67,8 +65,6 @@ const AddTransactionModal = ({ isOpen, onClose, transactionToEdit }) => {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          
-          {/* 1. TYPE (Income / Expense) */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Transaction Type</label>
             <select 
@@ -81,7 +77,6 @@ const AddTransactionModal = ({ isOpen, onClose, transactionToEdit }) => {
             </select>
           </div>
 
-          {/* 2. CATEGORY / NAME */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name / Category</label>
             <input 
@@ -94,7 +89,6 @@ const AddTransactionModal = ({ isOpen, onClose, transactionToEdit }) => {
             />
           </div>
 
-          {/* 3. AMOUNT / PRICE */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Price / Amount ($)</label>
             <input 
@@ -109,7 +103,6 @@ const AddTransactionModal = ({ isOpen, onClose, transactionToEdit }) => {
             />
           </div>
 
-          {/* 4. DATE */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Date</label>
             <input 
@@ -121,7 +114,6 @@ const AddTransactionModal = ({ isOpen, onClose, transactionToEdit }) => {
             />
           </div>
 
-          {/* SUBMIT BUTTON */}
           <button 
             type="submit" 
             className="w-full bg-purple-500 text-white font-medium py-2 rounded-lg hover:bg-purple-600 active:scale-[0.98] transition-all mt-6"

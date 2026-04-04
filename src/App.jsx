@@ -7,16 +7,16 @@ import AddTransactionModal from './components/AddTransactionModal';
 import DashboardCharts from './components/DashboardCharts';
 
 const DashboardLayout = () => {
-  // 1. Pull theme and setTheme from Context
+  // Pull theme and setTheme from Context
   const { role, setRole, theme, setTheme } = useFinance();
   
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
   
-  // 2. State to track which transaction is being edited
+  //  State to track which transaction is being edited
   const [editingTransaction, setEditingTransaction] = useState(null);
 
-  // 3. Handlers for Create vs Edit
+  // Handlers for Create vs Edit
   const handleEditClick = (transaction) => {
     setEditingTransaction(transaction);
     setIsModalOpen(true);
@@ -28,7 +28,6 @@ const DashboardLayout = () => {
   };
 
   return (
-    // Added dark mode background to main container
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col md:flex-row transition-colors duration-200">
       
       {/* Sidebar / Top Nav */}
@@ -83,7 +82,6 @@ const DashboardLayout = () => {
           </h2>
           
           {role === 'admin' && (
-            // Swapped inline state for handleCreateClick
             <button 
               onClick={handleCreateClick} 
               className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition"

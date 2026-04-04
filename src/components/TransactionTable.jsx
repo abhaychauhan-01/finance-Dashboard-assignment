@@ -7,8 +7,6 @@ const TransactionTable = ({ onEdit }) => {
   
   const [searchTerm, setSearchTerm] = useState('');
   const [filterDate, setFilterDate] = useState('');
-
-  // 1. Moved handleDelete OUTSIDE of the filter loop
   const handleDelete = (id) => {
     if(window.confirm("Are you sure you want to delete this transaction?")) {
       deleteTransaction(id);
@@ -16,7 +14,7 @@ const TransactionTable = ({ onEdit }) => {
     }
   };
 
-  // 2. Cleaned up Filter Logic
+  //Filter Logic
   const filteredTransactions = transactions.filter((t) => {
     const matchesSearch = t.category.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           t.type.toLowerCase().includes(searchTerm.toLowerCase());
@@ -67,7 +65,7 @@ const TransactionTable = ({ onEdit }) => {
               <th className="p-4 font-medium">Category</th>
               <th className="p-4 font-medium">Type</th>
               <th className="p-4 font-medium text-right">Amount</th>
-              {/* 3. Added the Admin Actions Header */}
+              {/*Admin Actions Header */}
               {role === 'admin' && <th className="p-4 font-medium text-center">Actions</th>}
             </tr>
           </thead>
@@ -86,7 +84,7 @@ const TransactionTable = ({ onEdit }) => {
                     {t.type === 'income' ? '+' : '-'}${t.amount.toLocaleString()}
                   </td>
                   
-                  {/* 4. Added the Edit/Delete Buttons for Admins */}
+                  {/* Edit/Delete Buttons for Admins */}
                   {role === 'admin' && (
                     <td className="p-4 text-sm text-center space-x-3">
                       <button onClick={() => onEdit(t)} className="text-blue-500 hover:text-blue-700 dark:text-blue-400 font-medium">Edit</button>

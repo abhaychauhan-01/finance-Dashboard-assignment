@@ -7,10 +7,10 @@ import {
 const COLORS = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#64748b'];
 
 const DashboardCharts = () => {
-  // 1. Pull the theme from context to conditionally style the SVGs
+  // Pull the theme from context to conditionally style the SVGs
   const { transactions, theme } = useFinance();
 
-  // Categorical Data: Grouping expenses by category for the Pie Chart
+  // Grouping expenses by category for the Pie Chart
   const expenseData = transactions
     .filter((t) => t.type === 'expense')
     .reduce((acc, curr) => {
@@ -24,7 +24,7 @@ const DashboardCharts = () => {
     }, [])
     .sort((a, b) => b.value - a.value); 
 
-  // Time-Based Data: Grouping income/expenses by date for the Bar Chart
+  // Grouping income/expenses by date for the Bar Chart
   const timeData = transactions
     .reduce((acc, curr) => {
       let existing = acc.find((item) => item.date === curr.date);
@@ -38,7 +38,7 @@ const DashboardCharts = () => {
     }, [])
     .sort((a, b) => new Date(a.date) - new Date(b.date)); 
 
-  // 2. Dynamic Colors for Recharts based on the current theme
+  //Dynamic Colors for Recharts based on the current theme
   const axisColor = theme === 'dark' ? '#9ca3af' : '#6b7280';
   const tooltipBg = theme === 'dark' ? '#1f2937' : '#ffffff';
   const tooltipBorder = theme === 'dark' ? '#374151' : '#f3f4f6';

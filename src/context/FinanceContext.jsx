@@ -11,13 +11,12 @@ export const FinanceProvider = ({ children }) => {
 
   const [role, setRole] = useState(() => localStorage.getItem('finance_role') || 'viewer');
   
-  // NEW: Theme State
   const [theme, setTheme] = useState(() => localStorage.getItem('finance_theme') || 'light');
 
   useEffect(() => { localStorage.setItem('finance_transactions', JSON.stringify(transactions)); }, [transactions]);
   useEffect(() => { localStorage.setItem('finance_role', role); }, [role]);
   
-  // NEW: Theme Watcher (Injects 'dark' class into the HTML tag)
+  // Theme Watcher
   useEffect(() => {
     localStorage.setItem('finance_theme', theme);
     if (theme === 'dark') {
@@ -29,7 +28,7 @@ export const FinanceProvider = ({ children }) => {
 
   const addTransaction = (newTx) => setTransactions([newTx, ...transactions]);
   
-  // NEW: Delete and Update Functions
+  // Delete and Update Functions
   const deleteTransaction = (id) => {
     setTransactions(transactions.filter(t => t.id !== id));
   };
